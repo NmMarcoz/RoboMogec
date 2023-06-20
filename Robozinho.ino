@@ -1,26 +1,30 @@
  // inclusão de bibliotecas.
- #include <Servo.h> // inclui biblioteca de manipulação de servos motores.
- #include <AFMotor.h> // inclui biblioteca de manipulação de motores DCs.
- #include <Ultrasonic.h>
+#include <Servo.h> // inclui biblioteca de manipulação de servos motores.
+#include <AFMotor.h> // inclui biblioteca de manipulação de motores DCs.
+#include <Ultrasonic.h>
 
  //ULTRASONICO______
 
- HC_SR04 distancia(12,13); //Porta 12: Trigger, Porta 13: Echo
- int leituraDoSonar = distancia.distance();
+HC_SR04 distancia(12,13); //Porta 12: Trigger, Porta 13: Echo
+int leituraDoSonar = distancia.distance();
 
  //Definindo os pinos
  //PINAGEM MOTORES________
- AF_DCMotor motor1(1); // Define o motor1 ligado ao M1
- AF_DCMotor motor2(2); // Define o motor2 ligado ao M2
- Servo servo_ultra_sonico; // nomeando o servo motor
+AF_DCMotor motor1(1); // Define o motor1 ligado ao M1
+AF_DCMotor motor2(2); // Define o motor2 ligado ao M2
+Servo servo_ultra_sonico; // nomeando o servo motor
  
  //VARIAVEIS______
- float TempoGirar = 0.2;//esse é o tempo para o robô girar em 45º com uma bateria de 9v.
- int distanciaObstaculo = 30; //distância para o robô parar e recalcular o melhor caminho
- int velocidadeMotores = 80; // velocidade que os motores funcionarão na bateria 9v. Para a bateria 9v a velocidade 80 é ideal
- int esquerda = 0;
- int direita = 0;
- int centro = 0;
+float TempoGirar = 0.2;//esse é o tempo para o robô girar em 45º com uma bateria de 9v.
+int distanciaObstaculo = 30; //distância para o robô parar e recalcular o melhor caminho
+int velocidadeMotores = 80; // velocidade que os motores funcionarão na bateria 9v. Para a bateria 9v a velocidade 80 é ideal
+int esquerda = 0;
+int direita = 0;
+int centro = 0;
+
+int centro_anterior = 0;
+int esquerda_anterior = 0;
+int direita_anterior = 0;
 
 //CLASSE DO MOTOR_________________
 class DCMotor{
@@ -71,9 +75,10 @@ void setup(){
 
  // Função principal do Arduino
 void loop(){
- Motor1.Speed(200);
- Motor2.Speed(200);
- pensar(); 
+  teste_rotacao();
+ //Motor1.Speed(200);
+ //Motor2.Speed(200);
+ //pensar(); 
 }
 
 void pensar(){
@@ -90,7 +95,7 @@ void pensar(){
  //}
 }
 void reposicionaServoSonar(){
- servo_ultra_sonico.write(90);
+ servo_ultra_sonico.write(104);
  delay(200);
 }
 
@@ -153,6 +158,7 @@ int calcularDistanciaDireita(){
    delay(20);
    Serial.print("Distancia da Direita: ");
    Serial.println(leituraDoSonar);
+   direita_anterior = leituraDoSonar;
    return leituraDoSonar;
  }
 
@@ -166,6 +172,7 @@ int calcularDistanciaEsquerda(){
  delay(20);
  Serial.print("Distancia Esquerda: ");
  Serial.println(leituraDoSonar);
+ esquerda_anterior = leituraDoSonar;
  return leituraDoSonar;
 }
 
@@ -178,6 +185,7 @@ int calcularDistanciaCentro(){
  delay(20);
  Serial.print("Distancia do Centro: "); // Exibe no serial
  Serial.println(leituraDoSonar);
+ centro_anterior = leituraDoSonar;
  return leituraDoSonar;
 }
 
@@ -263,6 +271,16 @@ void rotacao_Esquerda()
  Motor1.Backward();
  delay(TempoGirar);
  }
+
+void teste_rotacao(){
+  Motor1.Speed(255);  
+  Motor2.Speed(255); 
+  Motor1.Forward();
+  Motor2.Backward();
+  delay(500);
+  Motor1.Stop();
+  Motor2.Stop();
+}
 
 
  // Função para calcular a distância do centro
