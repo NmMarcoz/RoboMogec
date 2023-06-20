@@ -33,7 +33,7 @@ Servo servo_ultra_sonico; // nomeando o servo motor
 //------------------------------------VARIAVEIS--------------------------------------------------------------
 int leituraDoSonar = distancia.distance(); // Declarando a leitura do sonar como a função distancia do objeto Ultrassonico
 int TempoGirar = 250;//esse é o tempo para o robô girar em 90º com uma bateria de 9v.
-int distanciaObstaculo = 30; //distância para o robô parar e recalcular o melhor caminho
+int distanciaObstaculo = 20; //distância para o robô parar e recalcular o melhor caminho
 int esquerda = 0;
 int direita = 0;
 int centro = 0;
@@ -97,7 +97,7 @@ void loop(){
 
 
 void reposicionaServoSonar(){
- servo_ultra_sonico.write(90);
+ servo_ultra_sonico.write(104);
  rotacao_Parado();
  delay(200);
 }
@@ -215,6 +215,18 @@ void rotacao_Frente()
  delay(500);
  }
 
+ void rotacao_Frente_semDelay(){
+ Motor1.Speed(255);
+ Motor2.Speed(255);
+ Serial.println(" INDO PARA FRENTE");
+ Serial.println(".");
+ Serial.println(".");
+ Serial.println(".");
+ Serial.println(".");
+ Motor1.Forward();
+ Motor2.Forward();
+}
+
  // Função que faz o robô andar para trás e emite som quando ele dá ré
 void rotacao_Re()
  {
@@ -294,7 +306,12 @@ void pensar(){
  if (leituraDoSonar > distanciaObstaculo) { // Se a distância for maior que 20 cm
   leituraDoSonar = distancia.distance();
   Serial.print(leituraDoSonar);
-  rotacao_Frente();
+  while (leituraDoSonar > distanciaObstaculo){
+      rotacao_Frente_semDelay();
+      leituraDoSonar = distancia.distance();
+      Serial.print("a");
+  }
+
  }else{
   delay(200);
   posicionaCarroMelhorCaminho(); //calcula o melhor caminho
