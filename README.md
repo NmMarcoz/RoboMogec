@@ -6,3 +6,5 @@ Código feito para um robo com uma ponte H L289N. O robo contem:
 - 1 ultrasonico que está junto deste servo
 
 A lógica é feita para que o robo pare e analise suas situações. 
+
+Baseado em um modelo pré existente, porém com uma série de modificações
