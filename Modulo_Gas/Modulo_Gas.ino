@@ -21,8 +21,8 @@ int sensor_gas = A0;
 int digital_gas = D0;
 int nivel_normal = 30;
 
-const char* ssid = "GVIEIRA 2G";  // Rede WiFi
-const char* password = "tariq234";  //Senha da Rede WiFi
+const char* ssid = "Nogueira 2G";  // Rede WiFi
+const char* password = "36130302";  //Senha da Rede WiFi
 
 ESP8266WebServer server(80); //server na porta 80
 
@@ -51,11 +51,11 @@ void setup() {
   Serial.print("IP: ");
   Serial.println(WiFi.localIP()); //Função para exibir o IP da ESP
 
-  server.on("/", handle_OnConnect); //Servidor recebe uma solicitação HTTP - chama a função handle_OnConnect
-  server.onNotFound(handle_NotFound); //Servidor recebe uma solicitação HTTP não especificada - chama a função handle_NotFound
+  //server.on("/", handle_OnConnect); //Servidor recebe uma solicitação HTTP - chama a função handle_OnConnect
+  //server.onNotFound(handle_NotFound); //Servidor recebe uma solicitação HTTP não especificada - chama a função handle_NotFound
 
-  server.begin(); //Inicializa o servidor
-  Serial.println("Servidor HTTP inicializado");
+  //server.begin(); //Inicializa o servidor
+  //Serial.println("Servidor HTTP inicializado");
 
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;

@@ -32,7 +32,7 @@ Servo servo_ultra_sonico; // nomeando o servo motor
  
 //------------------------------------VARIAVEIS--------------------------------------------------------------
 int leituraDoSonar = distancia.distance(); // Declarando a leitura do sonar como a função distancia do objeto Ultrassonico
-int TempoGirar = 250;//esse é o tempo para o robô girar em 90º com uma bateria de 9v.
+int TempoGirar = 350;//esse é o tempo para o robô girar em 90º com uma bateria de 9v.
 int distanciaObstaculo = 20; //distância para o robô parar e recalcular o melhor caminho
 int esquerda = 0;
 int direita = 0;
@@ -87,8 +87,8 @@ void setup(){
  // Função principal do Arduino
 void loop(){
   //teste_rotacao();
- Motor1.Speed(200);
- Motor2.Speed(200);
+ Motor1.Speed(255);
+ Motor2.Speed(255);
  pensar(); 
 }
 
@@ -232,12 +232,12 @@ void rotacao_Re()
  {
  Serial.println(" VOLTANDO ");
  for (int i=0; i <= 3; i++){
- delay(100);
- //Motor1.Speed(200);
- //Motor2.Speed(200);
- Motor1.Backward();
- Motor2.Backward();
- delay(100);
+   delay(100);
+   //Motor1.Speed(200);
+   //Motor2.Speed(200);
+   Motor1.Backward();
+   Motor2.Backward();
+   delay(200);
  }
  rotacao_Parado();
  }
